@@ -1,9 +1,9 @@
-import Chart from "chart.js";
-import RoundedArc from "./elements/element.roundedArc";
-import RadialGaugeController from "./controllers/controller.radialGauge";
-import RadialGaugeChart from "./charts/Chart.RadialGauge";
+import Chart from 'chart.js';
+// eslint-disable-next-line no-unused-vars
+import RoundedArc from './elements/element.roundedArc';
+import RadialGaugeController from './controllers/controller.radialGauge';
+import RadialGaugeChart from './charts/Chart.RadialGauge';
 
-console.log(RoundedArc);
 RadialGaugeController(Chart);
 RadialGaugeChart(Chart);
 

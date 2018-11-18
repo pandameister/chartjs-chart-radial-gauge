@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Radial Gauge Chart</title>
+    <script src="../node_modules/chart.js/dist/Chart.bundle.js"></script>
+    <script src="../build/Chart.RadialGauge.js"></script>
+    <script src="./utils.js"></script>
+    <style>
+      canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="canvas-holder" style="width:100%"><canvas id="chart-area"></canvas></div>
+    <button id="randomizeData">Randomize Data</button>
+    <script>
+      var randomScalingFactor = function() {
+        return Math.round(Math.random() * 100);
+      };
+
+      var config = {
+        type: "radialGauge",
+        data: {
+          labels: ["Metrics"],
+          datasets: [
+            {
+              data: [randomScalingFactor()],
+              backgroundColor: [Samples.utils.transparentize(window.chartColors.blue, 0.5)],
+              label: "Score",
+              borderWidth: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          legend: {},
+          title: {
+            display: true,
+            text: "Radial rauge chart with background color"
+          },
+          centerValue: {
+            color: "#fff",
+            backgroundColor: "rgba(0,0,0,0.6)"
+          }
+        }
+      };
+
+      window.onload = function() {
+        var ctx = document.getElementById("chart-area").getContext("2d");
+        window.myRadialGauge = new Chart(ctx, config);
+      };
+
+      document.getElementById("randomizeData").addEventListener("click", function() {
+        config.data.datasets.forEach(function(dataset) {
+          dataset.data = dataset.data.map(function() {
+            return randomScalingFactor();
+          });
+        });
+
+        window.myRadialGauge.update();
+      });
+    </script>
+  </body>
+</html>
