@@ -21,6 +21,7 @@
       var randomScalingFactor = function() {
         return Math.round(Math.random() * 100);
       };
+      Chart.defaults.global.defaultFontFamily = 'Verdana';
 
       var ctx = document.getElementById('chart-area').getContext('2d');
       var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
@@ -47,7 +48,7 @@
             display: true,
             text: 'Radial rauge chart'
           },
-          cutoutPercentage: 80
+          centerPercentage: 80
         }
       };
 

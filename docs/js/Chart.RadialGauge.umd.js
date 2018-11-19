@@ -96,6 +96,9 @@
 
   var helpers = Chart__default.helpers;
 
+  /**
+   * Controller for the radialGauge chart type
+   */
 
   Chart__default.defaults._set('radialGauge', {
     animation: {
@@ -108,30 +111,38 @@
       mode: 'single'
     },
 
-    // The percentage of the chart that we cut out of the middle.
-    cutoutPercentage: 80,
+    // The percentage of the chart that is the center area
+    centerPercentage: 80,
 
-    // The rotation of the chart, ie where the first data arc begins.
+    // The rotation for the start of the metric's arc
     rotation: -Math.PI / 2,
-
-    // Whether to show the metric's value in the middle
-    showValue: true,
 
     // the color of the radial gauge's track
     trackColor: 'rgb(204, 221, 238)',
 
-    // whether the gauge value should have rounded corners
+    // whether arc for the gauge should have rounded corners
     roundedCorners: true,
 
     // center value options
-    centerValue: {
+    centerArea: {
+      // whether to display the center text value
       displayText: true,
-      fontFamily: 'Verdana',
-      color: '#000',
+      // font for the center text
+      fontFamily: null,
+      // color of the center text
+      fontColor: null,
+      // padding around the center area
       padding: 4,
-      image: null,
-      backgroundColor: null
+      // an image to use for the center background
+      backgroundImage: null,
+      // a color to use for the center background
+      backgroundColor: null,
+      // the text to display in the center
+      // this could be a string or a callback that returns a string
+      // if a callback is provided it will be called with (value, options)
+      text: null
     },
+
     legend: {
       display: false
     },
@@ -166,9 +177,7 @@
       draw: function draw() {
         this.drawTrack();
 
-        if (this.chart.options.showValue) {
-          this.drawCenterValue();
-        }
+        this.drawCenterArea();
 
         for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
           args[_key] = arguments[_key];
@@ -192,13 +201,13 @@
           _chart: this.chart
         }).draw();
       },
-      drawCenterValue: function drawCenterValue() {
+      drawCenterArea: function drawCenterArea() {
         var ctx = this.chart.ctx;
         var drawInfo = {
           ctx: ctx,
           value: Math.ceil(this.getMeta().data[0]._view.value),
           radius: this.innerRadius,
-          options: this.chart.options.centerValue
+          options: this.chart.options.centerArea
         };
 
         ctx.save();
@@ -210,11 +219,14 @@
             return;
           }
 
-          if (drawInfo.options.image) {
-            this.drawCenterImage(drawInfo);
-          } else if (drawInfo.options.backgroundColor) {
+          if (drawInfo.options.backgroundColor) {
             this.drawCenterBackground(drawInfo);
           }
+
+          if (drawInfo.options.backgroundImage) {
+            this.drawCenterImage(drawInfo);
+          }
+
           if (drawInfo.options.displayText) {
             this.drawCenterText(drawInfo);
           }
@@ -244,15 +256,15 @@
         ctx.arc(0, 0, imageRadius, 0, Math.PI * 2, true);
         ctx.closePath();
         ctx.clip();
-        ctx.drawImage(options.image, -imageRadius, -imageRadius, 2 * imageRadius, 2 * imageRadius);
+        ctx.drawImage(options.backgroundImage, -imageRadius, -imageRadius, 2 * imageRadius, 2 * imageRadius);
       },
       drawCenterText: function drawCenterText(_ref3) {
         var options = _ref3.options,
             value = _ref3.value;
 
         var fontSize = options.fontSize || (this.innerRadius / 50).toFixed(2) + 'em';
-        var fontFamily = options.fontFamily;
-        var color = options.color;
+        var fontFamily = options.fontFamily || Chart$$1.defaults.global.defaultFontFamily;
+        var color = options.fontColor || Chart$$1.defaults.global.defaultFontColor;
 
         var text = typeof options.text === 'function' ? options.text(value, options) : options.text;
         text = text || '' + value;
@@ -279,11 +291,11 @@
         var availableSize = Math.min(availableWidth, availableHeight);
 
         var meta = this.getMeta();
-        var cutoutPercentage = opts.cutoutPercentage;
+        var centerPercentage = opts.centerPercentage;
 
         this.borderWidth = this.getMaxBorderWidth(meta.data);
         this.outerRadius = Math.max((availableSize - this.borderWidth) / 2, 0);
-        this.innerRadius = Math.max(cutoutPercentage ? this.outerRadius / 100 * cutoutPercentage : 0, 0);
+        this.innerRadius = Math.max(centerPercentage ? this.outerRadius / 100 * centerPercentage : 0, 0);
 
         meta.total = this.getMetricValue();
         this.centerX = (chartArea.left + chartArea.right) / 2;

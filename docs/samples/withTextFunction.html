@@ -18,14 +18,16 @@
     <div id="canvas-holder" style="width:100%"><canvas id="chart-area"></canvas></div>
     <button id="randomizeData">Randomize Data</button>
     <script>
+      Chart.defaults.global.defaultFontFamily = 'Verdana';
+
       var randomScalingFactor = function() {
         return Math.round(Math.random() * 100);
       };
 
       var config = {
-        type: "radialGauge",
+        type: 'radialGauge',
         data: {
-          labels: ["Score"],
+          labels: ['Score'],
           datasets: [
             {
               data: [randomScalingFactor()],
@@ -42,22 +44,22 @@
           showValue: true,
           title: {
             display: true,
-            text: "Radial rauge chart with text function"
+            text: 'Radial rauge chart with text function'
           },
-          centerValue: {
+          centerArea: {
             text: function(value, options) {
-              return value + "%";
+              return value + '%';
             }
           }
         }
       };
 
       window.onload = function() {
-        var ctx = document.getElementById("chart-area").getContext("2d");
+        var ctx = document.getElementById('chart-area').getContext('2d');
         window.myRadialGauge = new Chart(ctx, config);
       };
 
-      document.getElementById("randomizeData").addEventListener("click", function() {
+      document.getElementById('randomizeData').addEventListener('click', function() {
         config.data.datasets.forEach(function(dataset) {
           dataset.data = dataset.data.map(function() {
             return randomScalingFactor();

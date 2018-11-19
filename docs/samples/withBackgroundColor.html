@@ -18,19 +18,21 @@
     <div id="canvas-holder" style="width:100%"><canvas id="chart-area"></canvas></div>
     <button id="randomizeData">Randomize Data</button>
     <script>
+      Chart.defaults.global.defaultFontFamily = 'Verdana';
+
       var randomScalingFactor = function() {
         return Math.round(Math.random() * 100);
       };
 
       var config = {
-        type: "radialGauge",
+        type: 'radialGauge',
         data: {
-          labels: ["Metrics"],
+          labels: ['Metrics'],
           datasets: [
             {
               data: [randomScalingFactor()],
               backgroundColor: [Samples.utils.transparentize(window.chartColors.blue, 0.5)],
-              label: "Score",
+              label: 'Score',
               borderWidth: 0
             }
           ]
@@ -40,21 +42,21 @@
           legend: {},
           title: {
             display: true,
-            text: "Radial rauge chart with background color"
+            text: 'Radial rauge chart with background color'
           },
-          centerValue: {
-            color: "#fff",
-            backgroundColor: "rgba(0,0,0,0.6)"
+          centerArea: {
+            color: '#fff',
+            backgroundColor: 'rgba(0,0,0,0.6)'
           }
         }
       };
 
       window.onload = function() {
-        var ctx = document.getElementById("chart-area").getContext("2d");
+        var ctx = document.getElementById('chart-area').getContext('2d');
         window.myRadialGauge = new Chart(ctx, config);
       };
 
-      document.getElementById("randomizeData").addEventListener("click", function() {
+      document.getElementById('randomizeData').addEventListener('click', function() {
         config.data.datasets.forEach(function(dataset) {
           dataset.data = dataset.data.map(function() {
             return randomScalingFactor();

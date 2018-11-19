@@ -56,5 +56,14 @@
     "release:patch": "yarn version patch && yarn publish && git push --follow-tags",
     "release:pre": "yarn version prerelease && yarn publish --tag=next && git push --follow-tags",
     "docs": "scripts/docs.sh"
-  }
+  },
+  "keywords": [
+    "chartjs",
+    "chart.js",
+    "chart",
+    "gauge",
+    "radial",
+    "polar",
+    "metric"
+  ]
 }

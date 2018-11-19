@@ -18,6 +18,8 @@
     <div id="canvas-holder" style="width:100%"><canvas id="chart-area"></canvas></div>
     <button id="randomizeData">Randomize Data</button>
     <script>
+      Chart.defaults.global.defaultFontFamily = 'Verdana';
+
       var randomScalingFactor = function() {
         return Math.round(Math.random() * 100);
       };
@@ -29,7 +31,7 @@
       image.src = 'profile.jpg';
 
       image.onload = function() {
-        config.options.centerValue.image = image;
+        config.options.centerArea.backgroundImage = image;
         if (window.myRadialGauge) {
           window.myRadialGauge.update();
         }
@@ -57,11 +59,11 @@
             display: true,
             text: 'Radial rauge chart with center image'
           },
-          centerValue: {
+          centerArea: {
             padding: 4,
             displayText: false
           },
-          cutoutPercentage: 90
+          centerPercentage: 90
         }
       };
 
