@@ -2,7 +2,7 @@
   "name": "chartjs-chart-radial-gauge",
   "description": "Chart.js radial gauge",
   "main": "build/Chart.RadialGauge.cjs.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Patrice Pominville",
     "email": "patrice.pominville@gmail.com"
