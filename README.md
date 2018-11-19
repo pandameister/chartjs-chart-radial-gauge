@@ -4,7 +4,7 @@ Chart.js radial gauge chart implementation
 
 <img src="https://pandameister.github.io/chartjs-chart-radial-gauge/docs/samples/sample.png" alt="drawing" width="250"/>
 
-See [Live Samples](https://pandameister.github.io/chartjs-chart-radial-gauge/samples/index.html)
+See [Live Samples](https://pandameister.github.io/chartjs-chart-radial-gauge/docs/samples/index.html)
 
 ## Install
 
