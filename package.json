@@ -54,6 +54,7 @@
     "release:major": "yarn version major && yarn publish && git push --follow-tags",
     "release:minor": "yarn version minor && yarn publish && git push --follow-tags",
     "release:patch": "yarn version patch && yarn publish && git push --follow-tags",
-    "release:pre": "yarn version prerelease && yarn publish --tag=next && git push --follow-tags"
+    "release:pre": "yarn version prerelease && yarn publish --tag=next && git push --follow-tags",
+    "docs": "scripts/docs.sh"
   }
 }
