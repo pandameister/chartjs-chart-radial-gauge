@@ -22,16 +22,21 @@
         return Math.round(Math.random() * 100);
       };
 
+      var ctx = document.getElementById('chart-area').getContext('2d');
+      var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+      gradientStroke.addColorStop(0, '#80b6f4');
+      gradientStroke.addColorStop(1, '#f49080');
+
       var config = {
-        type: "radialGauge",
+        type: 'radialGauge',
         data: {
-          labels: ["Metrics"],
+          labels: ['Metrics'],
           datasets: [
             {
               data: [randomScalingFactor()],
-              backgroundColor: [Samples.utils.transparentize(window.chartColors.blue, 0.5)],
+              backgroundColor: [gradientStroke],
               borderWidth: 0,
-              label: "Score"
+              label: 'Score'
             }
           ]
         },
@@ -40,17 +45,21 @@
           legend: {},
           title: {
             display: true,
-            text: "Radial rauge chart with center image"
-          }
+            text: 'Radial rauge chart'
+          },
+          centerValue: {
+            fontSize: '40px'
+          },
+          cutoutPercentage: 80
         }
       };
 
       window.onload = function() {
-        var ctx = document.getElementById("chart-area").getContext("2d");
+        var ctx = document.getElementById('chart-area').getContext('2d');
         window.myRadialGauge = new Chart(ctx, config);
       };
 
-      document.getElementById("randomizeData").addEventListener("click", function() {
+      document.getElementById('randomizeData').addEventListener('click', function() {
         config.data.datasets.forEach(function(dataset) {
           dataset.data = dataset.data.map(function() {
             return randomScalingFactor();

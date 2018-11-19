@@ -14,7 +14,7 @@ Chart.defaults._set('radialGauge', {
   },
 
   // The percentage of the chart that we cut out of the middle.
-  cutoutPercentage: 90,
+  cutoutPercentage: 80,
 
   // The rotation of the chart, ie where the first data arc begins.
   rotation: -Math.PI / 2,
