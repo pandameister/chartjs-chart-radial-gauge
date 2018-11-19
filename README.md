@@ -2,7 +2,7 @@
 
 Chart.js radial gauge chart implementation
 
-![Radial Gauge](https://pandameister.github.io/chartjs-chart-radial-gauge/docs/sample.png =200)
+<img src="https://pandameister.github.io/chartjs-chart-radial-gauge/docs/sample.png" alt="drawing" width="250"/>
 
 ## Install
 
