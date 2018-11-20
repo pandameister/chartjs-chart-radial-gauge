@@ -40,6 +40,9 @@ and then use the `radialGauge` chartType when create a Chart:
 var ctx = document.getElementById('chart-area').getContext('2d');
 var config = {
     type: 'radialGauge',
+    options: {
+      ...
+    },
     ...
 };
 new Chart(ctx, config);

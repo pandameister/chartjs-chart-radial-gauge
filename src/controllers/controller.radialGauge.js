@@ -167,7 +167,11 @@ export default Chart => {
     },
 
     drawCenterText({ options, value }) {
-      const fontSize = options.fontSize || `${(this.innerRadius / 50).toFixed(2)}em`;
+      let fontSize = options.fontSize || `${(this.innerRadius / 50).toFixed(2)}em`;
+      if (typeof fontSize === 'number') {
+        fontSize = `${fontSize}px`;
+      }
+
       const fontFamily = options.fontFamily || Chart.defaults.global.defaultFontFamily;
       const color = options.fontColor || Chart.defaults.global.defaultFontColor;
 
