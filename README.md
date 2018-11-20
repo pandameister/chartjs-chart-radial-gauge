@@ -12,6 +12,10 @@ See [Live Samples](https://pandameister.github.io/chartjs-chart-radial-gauge/doc
 npm install --save chart.js chartjs-chart-radial-gauge
 ```
 
+## Chart Type
+
+The code will register one new chart type with chartjs: `radialGauge`
+
 ## Usage
 
 Using node:
@@ -41,11 +45,9 @@ var config = {
 new Chart(ctx, config);
 ```
 
-## Chart
-
-The code will register one new chart type to chartjs: `radialGauge`
-
 ## Options
+
+Here are the configurable options for the radial gauge and their defaults:
 
 ```javascript
 options: {
@@ -91,10 +93,6 @@ options: {
   }
 }
 ```
-
-## Tutorial
-
-See my article on [medium](https://medium.com/@patricepominville/creating-a-new-chart-js-chart-type-5f665d16d7aa)
 
 ## Building
 

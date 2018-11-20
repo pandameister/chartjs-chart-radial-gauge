@@ -107,9 +107,6 @@
       // Boolean - Whether we animate scaling the radialGauge from the centre
       animateScale: true
     },
-    hover: {
-      mode: 'single'
-    },
 
     // The percentage of the chart that is the center area
     centerPercentage: 80,
@@ -131,6 +128,8 @@
       fontFamily: null,
       // color of the center text
       fontColor: null,
+      // the size of the center text
+      fontSize: null,
       // padding around the center area
       padding: 4,
       // an image to use for the center background
@@ -141,6 +140,10 @@
       // this could be a string or a callback that returns a string
       // if a callback is provided it will be called with (value, options)
       text: null
+    },
+
+    hover: {
+      mode: 'single'
     },
 
     legend: {
@@ -314,9 +317,9 @@
         var centerY = (chartArea.top + chartArea.bottom) / 2;
         var startAngle = opts.rotation; // non reset case handled later
         var dataset = this.getDataset();
-        var circumference = reset && animationOpts.animateRotate ? 0 : this.calculateCircumference(dataset.data[index]);
+        var arcAngle = reset && animationOpts.animateRotate ? 0 : this.calculateArcAngle(dataset.data[index]);
         var value = reset && animationOpts.animateScale ? 0 : this.getMetricValue();
-        var endAngle = startAngle + circumference;
+        var endAngle = startAngle + arcAngle;
         var innerRadius = this.innerRadius;
         var outerRadius = this.outerRadius;
         var valueAtIndexOrDefault = helpers.valueAtIndexOrDefault;
@@ -355,7 +358,7 @@
       getMetricValue: function getMetricValue() {
         var value = this.getDataset().data[0];
         if (value == null) {
-          value = 0;
+          value = this.chart.options.domain[0];
         }
 
         return value;
@@ -363,7 +366,7 @@
       getDomain: function getDomain() {
         return this.chart.options.domain;
       },
-      calculateCircumference: function calculateCircumference() {
+      calculateArcAngle: function calculateArcAngle() {
         var _getDomain = this.getDomain(),
             _getDomain2 = slicedToArray(_getDomain, 2),
             domainStart = _getDomain2[0],
