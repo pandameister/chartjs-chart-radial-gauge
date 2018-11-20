@@ -92,6 +92,10 @@ options: {
 }
 ```
 
+## Tutorial
+
+See my article on [medium](https://medium.com/@patricepominville/creating-a-new-chart-js-chart-type-5f665d16d7aa)
+
 ## Building
 
 ```sh
