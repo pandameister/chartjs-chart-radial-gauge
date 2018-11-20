@@ -64,6 +64,7 @@
     "gauge",
     "radial",
     "polar",
-    "metric"
+    "metric",
+    "meter"
   ]
 }

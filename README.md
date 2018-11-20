@@ -2,7 +2,7 @@
 
 Chart.js radial gauge chart implementation
 
-<img src="https://pandameister.github.io/chartjs-chart-radial-gauge/docs/samples/sample.png" alt="drawing" width="250"/>
+<img src="https://pandameister.github.io/chartjs-chart-radial-gauge/docs/samples/sample.gif" alt="drawing" width="250"/>
 
 See [Live Samples](https://pandameister.github.io/chartjs-chart-radial-gauge/docs/samples/index.html)
 
@@ -29,9 +29,68 @@ Or with a script tag
 <script src="node_modules/chartjs-chart-radial-gauge/build/Chart.RadialGauge.umd.min.js"></script>
 ```
 
+and then use the `radialGauge` chartType when create a Chart:
+
+```javascript
+
+var ctx = document.getElementById('chart-area').getContext('2d');
+var config = {
+    type: 'radialGauge',
+    ...
+};
+new Chart(ctx, config);
+```
+
 ## Chart
 
-The code will add one new chart type to chartjs: `radialGauge`
+The code will register one new chart type to chartjs: `radialGauge`
+
+## Options
+
+```javascript
+options: {
+  animation: {
+    // Boolean - Whether we animate the rotation of the radialGauge
+    animateRotate: true,
+    // Boolean - Whether we animate scaling the radialGauge from the centre
+    animateScale: true
+  },
+
+  // The percentage of the chart that is the center area
+  centerPercentage: 80,
+
+  // The rotation for the start of the metric's arc
+  rotation: -Math.PI / 2,
+
+  // the color of the radial gauge's track
+  trackColor: 'rgb(204, 221, 238)',
+
+  // whether arc for the gauge should have rounded corners
+  roundedCorners: true,
+
+  // center value options
+  centerArea: {
+    // whether to display the center text value
+    displayText: true,
+    // font for the center text
+    fontFamily: null,
+    // color of the center text
+    fontColor: null,
+    // the size of the center text
+    fontSize: null,
+    // padding around the center area
+    padding: 4,
+    // an image to use for the center background
+    backgroundImage: null,
+    // a color to use for the center background
+    backgroundColor: null,
+    // the text to display in the center
+    // this could be a string or a callback that returns a string
+    // if a callback is provided it will be called with (value, options)
+    text: null
+  }
+}
+```
 
 ## Building
 

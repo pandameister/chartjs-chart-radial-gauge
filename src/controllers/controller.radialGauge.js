@@ -13,9 +13,6 @@ Chart.defaults._set('radialGauge', {
     // Boolean - Whether we animate scaling the radialGauge from the centre
     animateScale: true
   },
-  hover: {
-    mode: 'single'
-  },
 
   // The percentage of the chart that is the center area
   centerPercentage: 80,
@@ -37,6 +34,8 @@ Chart.defaults._set('radialGauge', {
     fontFamily: null,
     // color of the center text
     fontColor: null,
+    // the size of the center text
+    fontSize: null,
     // padding around the center area
     padding: 4,
     // an image to use for the center background
@@ -47,6 +46,10 @@ Chart.defaults._set('radialGauge', {
     // this could be a string or a callback that returns a string
     // if a callback is provided it will be called with (value, options)
     text: null
+  },
+
+  hover: {
+    mode: 'single'
   },
 
   legend: {
@@ -219,10 +222,10 @@ export default Chart => {
       const centerY = (chartArea.top + chartArea.bottom) / 2;
       const startAngle = opts.rotation; // non reset case handled later
       const dataset = this.getDataset();
-      const circumference =
-        reset && animationOpts.animateRotate ? 0 : this.calculateCircumference(dataset.data[index]);
+      const arcAngle =
+        reset && animationOpts.animateRotate ? 0 : this.calculateArcAngle(dataset.data[index]);
       const value = reset && animationOpts.animateScale ? 0 : this.getMetricValue();
-      const endAngle = startAngle + circumference;
+      const endAngle = startAngle + arcAngle;
       const innerRadius = this.innerRadius;
       const outerRadius = this.outerRadius;
       const valueAtIndexOrDefault = helpers.valueAtIndexOrDefault;
@@ -268,7 +271,7 @@ export default Chart => {
     getMetricValue() {
       let value = this.getDataset().data[0];
       if (value == null) {
-        value = 0;
+        value = this.chart.options.domain[0];
       }
 
       return value;
@@ -278,7 +281,7 @@ export default Chart => {
       return this.chart.options.domain;
     },
 
-    calculateCircumference() {
+    calculateArcAngle() {
       const [domainStart, domainEnd] = this.getDomain();
       const value = this.getMetricValue();
       const domainSize = domainEnd - domainStart;
