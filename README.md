@@ -5,6 +5,7 @@ Chart.js radial gauge chart implementation
 <img src="https://pandameister.github.io/chartjs-chart-radial-gauge/docs/samples/sample.gif" alt="drawing" width="250"/>
 
 See [Live Samples](https://pandameister.github.io/chartjs-chart-radial-gauge/docs/samples/index.html)
+Code pen [example](https://codepen.io/pandameister/pen/OrJyYr)
 
 ## Install
 
