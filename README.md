@@ -71,6 +71,9 @@ options: {
   // the color of the radial gauge's track
   trackColor: 'rgb(204, 221, 238)',
 
+  // the domain for the data, default is [0, 100]
+  domain: [0, 365],
+  
   // whether arc for the gauge should have rounded corners
   roundedCorners: true,
 
