@@ -180,12 +180,35 @@ export default Chart => {
       this.chart.ctx.font = `${fontSize} ${fontFamily}`;
       this.chart.ctx.fillStyle = color;
       this.chart.ctx.textBaseline = 'middle';
-      const textWidth = this.chart.ctx.measureText(text).width;
-      const textX = Math.round(-textWidth / 2);
+      let textWidth = this.chart.ctx.measureText(text).width;
+      let textX = Math.round(-textWidth / 2);
 
-      // only display the text if it fits
+      // Only display the text if it fits. The Radius is half the width of the
+      // circle * 2 is the diameter and 0.8 is 80% of that.
       if (textWidth < 2 * this.innerRadius * 0.8) {
         this.chart.ctx.fillText(text, textX, 0);
+      }
+
+      // Draw any sub-text.
+      text = options.subText;
+      if (text) {
+        // The font-size is half of of the calculated size above.
+        fontSize = `${(this.innerRadius / 100).toFixed(2)}em`;
+
+        // Set the size of the font.
+        this.chart.ctx.font = `${fontSize} ${fontFamily}`;
+
+        // Calculate the width of the sub-text.
+        textWidth = this.chart.ctx.measureText(text).width;
+
+        // Calculate the x-coordinate of the text.
+        textX = Math.round(-textWidth / 2);
+
+        // If the text won't fix, then don't display it. See above for details.
+        if (textWidth < 2 * this.innerRadius * 0.7) {
+          // Draw the sub-text 30% below the main text.
+          this.chart.ctx.fillText(text, textX, this.innerRadius * 0.3);
+        }
       }
     },
 
