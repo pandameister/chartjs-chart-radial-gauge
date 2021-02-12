@@ -166,6 +166,27 @@ export default Chart => {
       );
     },
 
+    wrapText(context, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+
+      for (let n = 0; n < words.length; n += 1) {
+        const testLine = line.concat(words[n], ' ');
+        const metrics = context.measureText(testLine);
+        const testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+          context.textAlign = 'center';
+          context.fillText(line, x, y);
+          line = words[n].concat(' ');
+          y += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      context.textAlign = 'center';
+      context.fillText(line, x, y);
+    },
+
     drawCenterText({ options, value }) {
       let fontSize = options.fontSize || `${(this.innerRadius / 50).toFixed(2)}em`;
       if (typeof fontSize === 'number') {
@@ -204,11 +225,16 @@ export default Chart => {
         // Calculate the x-coordinate of the text.
         textX = Math.round(-textWidth / 2);
 
-        // If the text won't fix, then don't display it. See above for details.
-        if (textWidth < 2 * this.innerRadius * 0.7) {
-          // Draw the sub-text 30% below the main text.
-          this.chart.ctx.fillText(text, textX, this.innerRadius * 0.3);
-        }
+        // Draw the sub-text 30% below the main text. Wrap the text and center
+        // it.
+        this.wrapText(
+          this.chart.ctx,
+          text,
+          0,
+          this.innerRadius * 0.3,
+          this.innerRadius * 2 * 0.8,
+          this.innerRadius / 100 + (this.innerRadius * 0.2),
+        );
       }
     },
 
