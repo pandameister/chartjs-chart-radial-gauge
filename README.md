@@ -73,7 +73,7 @@ options: {
 
   // the domain for the data, default is [0, 100]
   domain: [0, 365],
-  
+
   // whether arc for the gauge should have rounded corners
   roundedCorners: true,
 
@@ -96,7 +96,9 @@ options: {
     // the text to display in the center
     // this could be a string or a callback that returns a string
     // if a callback is provided it will be called with (value, options)
-    text: null
+    text: null,
+    // the text to display beneath the text specified above
+    subText: null,
   }
 }
 ```
