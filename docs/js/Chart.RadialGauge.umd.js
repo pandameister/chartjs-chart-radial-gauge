@@ -261,11 +261,35 @@
         ctx.clip();
         ctx.drawImage(options.backgroundImage, -imageRadius, -imageRadius, 2 * imageRadius, 2 * imageRadius);
       },
+      wrapText: function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        var words = text.split(' ');
+        var line = '';
+
+        for (var n = 0; n < words.length; n += 1) {
+          var testLine = line.concat(words[n], ' ');
+          var metrics = context.measureText(testLine);
+          var testWidth = metrics.width;
+          if (testWidth > maxWidth && n > 0) {
+            context.textAlign = 'center';
+            context.fillText(line, x, y);
+            line = words[n].concat(' ');
+            y += lineHeight;
+          } else {
+            line = testLine;
+          }
+        }
+        context.textAlign = 'center';
+        context.fillText(line, x, y);
+      },
       drawCenterText: function drawCenterText(_ref3) {
         var options = _ref3.options,
             value = _ref3.value;
 
         var fontSize = options.fontSize || (this.innerRadius / 50).toFixed(2) + 'em';
+        if (typeof fontSize === 'number') {
+          fontSize = fontSize + 'px';
+        }
+
         var fontFamily = options.fontFamily || Chart$$1.defaults.global.defaultFontFamily;
         var color = options.fontColor || Chart$$1.defaults.global.defaultFontColor;
 
@@ -277,9 +301,30 @@
         var textWidth = this.chart.ctx.measureText(text).width;
         var textX = Math.round(-textWidth / 2);
 
-        // only display the text if it fits
+        // Only display the text if it fits. The Radius is half the width of the
+        // circle * 2 is the diameter and 0.8 is 80% of that.
         if (textWidth < 2 * this.innerRadius * 0.8) {
           this.chart.ctx.fillText(text, textX, 0);
+        }
+
+        // Draw any sub-text.
+        text = options.subText;
+        if (text) {
+          // The font-size is half of of the calculated size above.
+          fontSize = (this.innerRadius / 100).toFixed(2) + 'em';
+
+          // Set the size of the font.
+          this.chart.ctx.font = fontSize + ' ' + fontFamily;
+
+          // Calculate the width of the sub-text.
+          textWidth = this.chart.ctx.measureText(text).width;
+
+          // Calculate the x-coordinate of the text.
+          textX = Math.round(-textWidth / 2);
+
+          // Draw the sub-text 30% below the main text. Wrap the text and center
+          // it.
+          this.wrapText(this.chart.ctx, text, 0, this.innerRadius * 0.3, this.innerRadius * 2 * 0.8, this.innerRadius / 100 + this.innerRadius * 0.2);
         }
       },
       update: function update(reset) {
