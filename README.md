@@ -10,7 +10,7 @@ and [Code Pen example](https://codepen.io/pandameister/pen/OrJyYr)
 ## Install
 
 ```bash
-npm install --save chart.js chartjs-chart-radial-gauge
+npm install --save chart.js@2.7.3 chartjs-chart-radial-gauge
 ```
 
 ## Chart Type
